@@ -6,6 +6,7 @@ import { useState, useEffect } from "react";
 const App = () => {
   const [starshipData, setStarshipData] = useState([]);
   const [displayedStarships, setDisplayedStarships] = useState([]);
+  const [prevSearchTerm, setPrevSearchTerm] = useState("");
 
   const fetchData = async (ship) => {
     const res = await fetch("https://swapi.info/api/starships");
@@ -30,12 +31,33 @@ const App = () => {
     fetchData();
   }, []);
 
+  const handleSearch = (searchShip) => {
+    setPrevSearchTerm(searchShip);
+
+    setDisplayedStarships(
+      starshipData.filter((ship) =>
+        ship.name.toLowerCase().includes(searchShip.toLowerCase())
+      )
+    );
+  };
+
+  const handleShowAllShips = () => {
+    setPrevSearchTerm("");
+    setDisplayedStarships(starshipData);
+  };
+
   return (
     <main>
       <div>
         <h1>Star Wars API</h1>
-        <StarshipSearch fetchData={fetchData} />
-        <StarshipList starshipData={starshipData} />
+        <StarshipSearch
+          handleSearch={handleSearch}
+          prevSearchTerm={prevSearchTerm}
+        />
+        {prevSearchTerm && (
+          <button onClick={handleShowAllShips}>Show all starships</button>
+        )}
+        <StarshipList displayedStarships={displayedStarships} />
       </div>
     </main>
   );

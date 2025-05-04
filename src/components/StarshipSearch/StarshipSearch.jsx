@@ -1,30 +1,30 @@
 import React from "react";
-
 import { useState } from "react";
 
 const starshipSearch = (props) => {
-  const [ship, setShip] = useState({});
+  const [ship, setShip] = useState([]);
+  // const [prevSearchTerm, setPrevSearchTerm] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    props.fetchData(ship);
-    setShip({});
+    props.handleSearch(ship);
+    setShip("");
   };
 
   return (
-    <section>
-      <h2>Search</h2>
+    <div>
+      {props.prevSearchTerm
+        ? `Results for: ${props.prevSearchTerm}`
+        : `Search for a starship by  name`}
       <form onSubmit={handleSubmit}>
-        <label htmlFor="ship">Search Term:</label>
         <input
-          id="ship"
           type="text"
-          value={ship.name}
+          value={ship}
           onChange={(e) => setShip(e.target.value)}
         />
         <button type="submit">Search</button>
       </form>
-    </section>
+    </div>
   );
 };
 

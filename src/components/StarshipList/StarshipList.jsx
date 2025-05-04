@@ -1,11 +1,11 @@
 import React from "react";
 import StarshipCard from "../StarshipCard/StarshipCard";
 
-const StarshipList = ({ starshipData }) => {
+const StarshipList = ({ displayedStarships }) => {
   return (
     <section>
-      <div>
-        {starshipData.map((value) => {
+      <div className="displayship">
+        {displayedStarships.map((value) => {
           return (
             <StarshipCard
               key={value.name}
@@ -13,7 +13,6 @@ const StarshipList = ({ starshipData }) => {
               model={value.model}
               manufacturer={value.manufacturer}
               class={value.starship_class}
-              starshipData={starshipData}
             />
           );
         })}

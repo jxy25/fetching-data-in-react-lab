@@ -87,3 +87,10 @@ button:focus-visible {
   background-color: rgb(155, 155, 155);
   color: black;
 }
+
+.displayship {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+}
